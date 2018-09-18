@@ -8,8 +8,8 @@ By using Docker-Compose, you can build CakePHP3 environment easily.
 * Docker Compose 1.22.0
 * Docker Machine 0.15.0
 
-## Initialization (Build CakePHP Project)
-Since CakePHP has an execution environment for each project, so create a project. To create another project, follow the same procedure.
+## Initialization (Build CakePHP3 Project)
+Since CakePHP3 has an execution environment for each project, so create a project. To create another project, follow the same procedure.
 
 ### Create Docker Images
 It will take about two or three minutes.
@@ -27,7 +27,7 @@ $ docker-compose up -d
 ### Enter PHP-FPM Container
 
 ```
-$ docker exec -it docker-cakephp-template_phpfpm_1 /bin/sh
+$ docker exec -it docker-cakephp3-template_phpfpm_1 /bin/sh
 ```
 
 
