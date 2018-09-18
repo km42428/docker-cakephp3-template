@@ -1,0 +1,55 @@
+version: '2'
+services:
+  mysql:
+    restart: always
+    build: ./data/mysql/
+    volumes:
+      - "./data/mysql/db:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: my_app
+      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: my_app
+      TZ: "Asia/Tokyo"
+    ports:
+      - "3307:3306"
+  nginx:
+    restart: always
+    image: "nginx:mainline-alpine"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./data/nginx/conf:/etc/nginx/"
+      - "./data/htdocs:/var/www/html"
+    environment:
+      TZ: "Asia/Tokyo"
+    depends_on:
+      - phpfpm
+    links:
+      - phpfpm
+  phpfpm:
+    build: ./data/phpfpm/
+    environment:
+      TZ: "Asia/Tokyo"
+    volumes:
+      - "./data/htdocs:/var/www/html"
+    depends_on:
+      - mysql
+    links:
+      - mysql
+  host:
+    build: ./data/htdocs
+    environment:
+      TZ: "Asia/Tokyo"
+      PRJ: "sample"
+    volumes:
+      - "./data/htdocs:/root"
+    ports:
+      - "8765:80"
+    depends_on:
+      - mysql
+      - phpfpm
+    links:
+      - mysql
+      - phpfpm
