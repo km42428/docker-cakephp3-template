@@ -1,4 +1,4 @@
-# docker-cakephp-template
+# docker-cakephp3-template
 
 By using Docker-Compose, you can build CakePHP3 environment easily.
 
